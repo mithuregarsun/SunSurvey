@@ -1,8 +1,11 @@
 package suntechnologies.com.sunsurvey;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 ;
 import android.widget.Button;
@@ -10,8 +13,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuthException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminLogin extends Activity {
     EditText emailTextId,passwordTextId;
@@ -19,40 +32,68 @@ public class AdminLogin extends Activity {
     Button signBtn;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String email,password;
-
+    private FirebaseAuth auth;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.admin_login);
+
+        auth = FirebaseAuth.getInstance();
         emailTextId = findViewById(R.id.email_id);
         passwordTextId = findViewById(R.id.password);
         ForgotTextView = findViewById(R.id.forgot_textView);
         signBtn = findViewById(R.id.signBtn);
-        email = emailTextId.getText().toString().trim();
-        password = passwordTextId.getText().toString().trim();
-
-
-
 
 
         signBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!email.matches(emailPattern))
-                {
-                    Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
+                email = emailTextId.getText().toString().trim();
+                password = passwordTextId.getText().toString().trim();
 
 
-                }
-                else if(password.length()< 8 &&!isValidPassword(password)){
-                    System.out.println("Not Valid password");
+                  if(email.length()>0 && password.length()>0)
+                  auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(AdminLogin.this, new OnCompleteListener<AuthResult>() {
+                       @Override
+                       public void onComplete(@NonNull Task<AuthResult> task) {
 
-                }else{
+                           FirebaseUser user = auth.getCurrentUser();
+                           if (task.isSuccessful()) {
+                               Log.d("sussss", String.valueOf(user.getUid()));
+                               FirebaseDatabase database = FirebaseDatabase.getInstance();
+                               DatabaseReference myRef = database.getReference("message");
 
-                    Toast.makeText(getApplicationContext(),"valid emai and password",Toast.LENGTH_SHORT).show();
+                               myRef.setValue("Hello, World!");
 
-                }
+
+                               Intent intent = new Intent(AdminLogin.this, CreateSurvey.class);
+                               startActivity(intent);
+                               finish();
+
+
+                           }
+                           else{
+                               Toast.makeText( AdminLogin.this, task.getException().toString(),Toast.LENGTH_SHORT).show();
+                           }
+
+
+
+                       }
+
+                   });
+
+
+
+            }
+        });
+        ForgotTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminLogin.this, ForgotPassword.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
             }
         });

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+      >
+
+        <TextView
+            android:id="@+id/textThankYou"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.08"
+            android:text="Thank you"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:text="Okay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/thank_you_done" />
+
+    </LinearLayout>
+
+</RelativeLayout>

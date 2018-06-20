@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="suntechnologies.com.sunsurvey">
-    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
@@ -21,6 +21,13 @@
 
         </activity>
         <activity android:name=".AdminLogin"
+            tools:ignore="DuplicateActivity">
+
+        </activity>
+        <activity android:name=".ForgotPassword"
+            tools:ignore="DuplicateActivity">
+
+        </activity><activity android:name=".CreateSurvey"
             tools:ignore="DuplicateActivity">
 
         </activity>

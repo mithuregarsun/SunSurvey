@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "231009201633",
+    "firebase_url": "https://sunsurvey-4f926.firebaseio.com",
+    "project_id": "sunsurvey-4f926",
+    "storage_bucket": "sunsurvey-4f926.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231009201633:android:0bccb5fa119d2e9a",
+        "android_client_info": {
+          "package_name": "suntechnologies.com.sunsurvey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231009201633-18elblc0hh8mv6c75bolpvimdphgsvo6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "suntechnologies.com.sunsurvey",
+            "certificate_hash": "9a15a1fae0ec40334a3ed5c613dfa61be9100923"
+          }
+        },
+        {
+          "client_id": "231009201633-s9e6tfeo4krma7ehm3cfm4hvroelufpc.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "231009201633-s9e6tfeo4krma7ehm3cfm4hvroelufpc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClohMN14km_jK3_JiRYfBv-m_6YA0P0xc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231009201633-s9e6tfeo4krma7ehm3cfm4hvroelufpc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
