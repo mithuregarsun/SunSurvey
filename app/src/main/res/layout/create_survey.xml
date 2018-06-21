@@ -7,5 +7,65 @@
 
 
 
+    <Button
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:layout_margin="10dp"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorAccent"
+        android:id="@+id/createSurvey"
+        android:layout_height="wrap_content"
+        android:text="Create Survey"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textAllCaps="false"
+        android:hint="Please enter survey question?"
+        android:id="@+id/question"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textAllCaps="false"
+        android:hint="Option"
+        android:id="@+id/opt1"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textAllCaps="false"
+        android:hint="Option"
+        android:id="@+id/opt2"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textAllCaps="false"
+        android:hint="Option"
+        android:id="@+id/opt3"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textAllCaps="false"
+        android:hint="Option"
+        android:id="@+id/opt4"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="submit"
+        android:textAllCaps="false"
+        android:background="@color/colorPrimary"
+        android:id="@+id/submit"
+        android:textColor="#FFFFFF"
+        android:layout_margin="20dp"/>
+
+
+
 
 </LinearLayout>

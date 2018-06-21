@@ -27,10 +27,29 @@
         <activity android:name=".ForgotPassword"
             tools:ignore="DuplicateActivity">
 
-        </activity><activity android:name=".CreateSurvey"
+        </activity>
+        <activity android:name=".CreateSurvey"
             tools:ignore="DuplicateActivity">
 
         </activity>
+        <activity android:name=".TakeSurveyUser"
+            tools:ignore="DuplicateActivity">
+
+        </activity>
+        <activity android:name=".FeedBackUser"
+            tools:ignore="DuplicateActivity">
+
+        </activity>
+        <activity android:name=".ShareQuestionUser"
+            tools:ignore="DuplicateActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+
+        </activity>
+
     </application>
 
 </manifest>

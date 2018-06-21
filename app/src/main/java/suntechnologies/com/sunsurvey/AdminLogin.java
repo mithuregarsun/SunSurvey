@@ -30,10 +30,9 @@ public class AdminLogin extends Activity {
     EditText emailTextId,passwordTextId;
     TextView ForgotTextView;
     Button signBtn;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String email,password;
     private FirebaseAuth auth;
-    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +59,6 @@ public class AdminLogin extends Activity {
 
                            FirebaseUser user = auth.getCurrentUser();
                            if (task.isSuccessful()) {
-                               Log.d("sussss", String.valueOf(user.getUid()));
-                               FirebaseDatabase database = FirebaseDatabase.getInstance();
-                               DatabaseReference myRef = database.getReference("message");
-
-                               myRef.setValue("Hello, World!");
-
 
                                Intent intent = new Intent(AdminLogin.this, CreateSurvey.class);
                                startActivity(intent);

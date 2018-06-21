@@ -55,6 +55,9 @@ public class MainActivity extends Activity {
                         FirebaseUser user = auth.getCurrentUser();
                         if (task.isSuccessful()) {
                             Log.d("sussss", String.valueOf(user.getUid()));
+                            Intent intent = new Intent(MainActivity.this, TakeSurveyUser.class);
+
+                            startActivity(intent);
                         }
                         else{
                             Toast.makeText( MainActivity.this, task.getException().toString(),Toast.LENGTH_SHORT).show();
