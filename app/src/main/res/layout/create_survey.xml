@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="#FFFFFF"
+        android:textAlignment="center"
+        android:background="#FF8000" />
+<LinearLayout
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="20dp"
+    android:layout_below="@id/toolbar"
+    android:id="@+id/mainLayout"
+    android:gravity="center"
+    android:layout_height="wrap_content">
 
 
 
@@ -11,61 +29,184 @@
         android:layout_width="match_parent"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:layout_margin="10dp"
         android:textColor="#FFFFFF"
         android:background="@color/colorAccent"
         android:id="@+id/createSurvey"
         android:layout_height="wrap_content"
+
+
         android:text="Create Survey"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:id="@+id/createSurveyName"
+        android:layout_height="match_parent">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTint="#FF4081"
+                android:singleLine="true"
+                android:maxLength="50"
+                android:hint="Enter Survey Name "
+                android:id="@+id/survey_name"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Question"
+            android:textAllCaps="false"
+            android:background="@color/colorPrimary"
+            android:id="@+id/enterQuestion"
+            android:textColor="#FFFFFF" />
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/createSurveyLayout"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textAllCaps="false"
+        android:inputType="text"
         android:hint="Please enter survey question?"
+        android:imeOptions="actionNext"
         android:id="@+id/question"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textAllCaps="false"
-        android:hint="Option"
-        android:id="@+id/opt1"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textAllCaps="false"
-        android:hint="Option"
-        android:id="@+id/opt2"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textAllCaps="false"
-        android:hint="Option"
-        android:id="@+id/opt3"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"     />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textAllCaps="false"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:hint="Option"
+                android:id="@+id/opt1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:imeOptions="actionNext"
+                android:textAllCaps="false"
+                android:inputType="text"
+                android:hint="Option"
+                android:id="@+id/opt2"/>
+        </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <RadioButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:checked="false" />
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textColor="#000000"
+           android:textAllCaps="false"
+           android:imeOptions="actionNext"
+           android:inputType="text"
+           android:hint="Option"
+           android:id="@+id/opt3"/>
+   </LinearLayout>
 
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
         android:textAllCaps="false"
+        android:imeOptions="actionDone"
+        android:inputType="text"
         android:hint="Option"
         android:id="@+id/opt4"/>
+
+</LinearLayout>
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Out off 10"
+            android:id="@+id/questionCount"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textStyle="bold|italic"
+            android:textAlignment="center"
+            android:gravity="end"
+            android:layout_gravity="end"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="submit"
+        android:text="Next"
         android:textAllCaps="false"
         android:background="@color/colorPrimary"
-        android:id="@+id/submit"
-        android:textColor="#FFFFFF"
-        android:layout_margin="20dp"/>
+        android:id="@+id/next"
+        android:textColor="#FFFFFF" />
 
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Submit"
+            android:textAllCaps="false"
+            android:background="#008000"
+            android:id="@+id/submit"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold|italic"
+            android:visibility="visible"
+           />
+    </LinearLayout>
 
 
 </LinearLayout>
+
+     </RelativeLayout>

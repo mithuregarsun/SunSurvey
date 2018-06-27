@@ -1,25 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-    <Button
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:text="surveyId"
-        android:textAllCaps="false"
-        android:id="@+id/serveyId"/>
-    <Button
+        app:titleTextColor="#FFFFFF"
+        android:textAlignment="center"
+        android:background="#FF8000" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:text="Share"
-        android:textAllCaps="false"
-        android:id="@+id/share"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/serveyId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:text="Before Clicking"
+            android:textColor="#f00"
+            android:textSize="25sp"
+            android:textStyle="bold|italic"
+            android:layout_marginTop="50dp"/>
+
+        <Button
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:background="#3b5998"
+            android:padding="10dp"
+            android:text="Share"
+            android:layout_marginTop="50dp"
+            android:textColor="#fff"
+            android:textStyle="bold" />
 
 
+    </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
