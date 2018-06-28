@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
 
                                     }else{
                                         dialog.dismiss();
-                                        Helper.showDialog(MainActivity.this,"Error","This sun survey id is not aviable! ");
+                                        Helper.showDialog(MainActivity.this,"Error","This survey is not available! ");
                                     }
 
 
@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
                                     System.out.println("The read failed: " + databaseError.getCode());
-                                    Helper.showDialog(MainActivity.this,"Error","This sun survey id is not aviable! ");
+                                    Helper.showDialog(MainActivity.this,"Error","This survey is not available! ");
                                     dialog.dismiss();
                                 }
                             });
@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
                 });
                 else{
                     dialog.dismiss();
-                    Helper.showDialog(MainActivity.this,"Error","Please Enter Valid survey Id");
+                    Helper.showDialog(MainActivity.this,"Error","Enter valid sun survey id...");
                 }
 
 

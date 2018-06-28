@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -95,6 +97,10 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
         radioButtonB.setText(questionArryList.get(questionID).getOption().get(1));
         radioButtonC.setText(questionArryList.get(questionID).getOption().get(2));
         radioButtonD.setText(questionArryList.get(questionID).getOption().get(3));
+        radioButtonA.setChecked(false);
+        radioButtonB.setChecked(false);
+        radioButtonC.setChecked(false);
+        radioButtonB.setChecked(false);
 
     }
     @Override
@@ -102,27 +108,33 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.optionsGroup);
         RadioButton answer = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
 
+        Log.d("ss",answer.toString());
 
-        writeNewUser(String.valueOf(serveyId) ,questionArryList.get(questionID).question, questionID,answer.getText().toString()) ;
-        questionID++;
-        if (surveyNotFinished()) {
+       if(answer.getText().toString() != null){
+           writeNewUser(String.valueOf(serveyId) ,sessionToken,questionArryList.get(questionID).question, questionID,answer.getText().toString()) ;
+           questionID++;
+           if (surveyNotFinished()) {
 
-            question = questionArryList.get(questionID);
-            setupView();
-        } else {
-            Intent intent = new Intent(this, FeedBackUser.class);
-            startActivity(intent);
-            finish();
-        }
+               question = questionArryList.get(questionID);
+               setupView();
+           } else {
+               Intent intent = new Intent(this, FeedBackUser.class);
+               startActivity(intent);
+               finish();
+           }
+       }else{
+           Toast.makeText(TakeSurveyUser.this, "Please select any one item.", Toast.LENGTH_SHORT).show();
+       }
+
     }
     private boolean surveyNotFinished() {
         return questionID < questionArryList.size();
     }
-    private void writeNewUser(String serveyId,String question,int questionID,String answer ) {
+    private void writeNewUser(String serveyId,String sessionToken,String question,int questionID,String answer ) {
 
             ServeyTakeAnswer serveyTakeAnswer = new ServeyTakeAnswer(question,answer);
 
-        mDatabase.child(String.valueOf(questionID)).setValue(serveyTakeAnswer);
+        mDatabase.child(sessionToken).child(String.valueOf(questionID)).setValue(serveyTakeAnswer);
 
 
 

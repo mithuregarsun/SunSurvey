@@ -16,8 +16,8 @@
     android:textAllCaps="false"
     android:textStyle="bold|italic"
     android:textColor="@color/colorPrimary"
-    android:textSize="20dp"
-    android:text="Thank You take Survey"/>
+    android:textSize="18dp"
+    android:text="Thank you for taking the Survey"/>
 
 
 
@@ -43,7 +43,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="submit"
+        android:text="Submit"
         android:id="@+id/thank_you_done"
         android:textAllCaps="false"
         android:layout_marginTop="100dp"

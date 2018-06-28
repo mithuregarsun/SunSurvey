@@ -85,6 +85,7 @@
                 android:background="#d67601"
                 android:text="Sign in"
                 android:textAllCaps="false"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
                 android:id="@+id/signBtn"
                 android:textColor="#fff"
                 android:textSize="18sp" />

@@ -159,10 +159,18 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
                      stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,option));
 
                      writeNewUser(String.valueOf(serveyId) ,stringCreateSurveyQuestionHashMap) ;
+                     if(i==20){
+
+                         Intent intent = new Intent(CreateSurvey.this, ShareQuestionUser.class);
+                         Bundle bundle = new Bundle();
+                         bundle.putString("serveyId", String.valueOf(serveyId));
+                         intent.putExtras(bundle);
+                         startActivity(intent);
+                     }
 
 
                  }else{
-                     Helper.showDialog(CreateSurvey.this,"Alert","Please Write question and options?");
+                     Helper.showDialog(CreateSurvey.this,"Alert","Please complete question/options !");
                  }
 
 
@@ -199,15 +207,19 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
 
                     writeNewUser(String.valueOf(serveyId) ,stringCreateSurveyQuestionHashMap) ;
 
-                    Intent intent = new Intent(CreateSurvey.this, ShareQuestionUser.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("serveyId", String.valueOf(serveyId));
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+
+
+                        Intent intent = new Intent(CreateSurvey.this, ShareQuestionUser.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("serveyId", String.valueOf(serveyId));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
+
 
 
                 }else{
-                    Helper.showDialog(CreateSurvey.this,"Alert","Please Write question and options?");
+                    Helper.showDialog(CreateSurvey.this,"Alert","Please complete question/options !");
                 }
 
 
@@ -297,6 +309,7 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
             mDatabase.child(String.valueOf(entry.getKey())).setValue(entry.getValue());
 
         }
+        option.clear();
 
     }
     @Override
