@@ -77,7 +77,7 @@ public class AdminLogin extends Activity {
                               if (task.isSuccessful()) {
                                   Helper.hideSoftKeyboard(AdminLogin.this);
                                   dialog.dismiss();
-                                  Intent intent = new Intent(AdminLogin.this, CreateSurvey.class);
+                                  Intent intent = new Intent(AdminLogin.this, SurveyDashBoard.class);
                                   startActivity(intent);
                                   finish();
 
@@ -131,6 +131,18 @@ public class AdminLogin extends Activity {
         matcher = pattern.matcher(password);
 
         return matcher.matches();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(AdminLogin.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+
 
     }
 }

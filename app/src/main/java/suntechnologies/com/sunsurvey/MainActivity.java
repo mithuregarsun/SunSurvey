@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,9 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dmax.dialog.SpotsDialog;
+import suntechnologies.com.sunsurvey.Models.CreateSurveyQuestion;
 import suntechnologies.com.sunsurvey.utility.Helper;
 
 public class MainActivity extends Activity {
@@ -52,7 +51,7 @@ public class MainActivity extends Activity {
          editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
 
        dialog = new SpotsDialog(this,"Searching Survey....");
-
+        dialog.setCancelable(false);
        adminLogin.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -75,6 +74,7 @@ public class MainActivity extends Activity {
                         dialog.show();
 
                         final FirebaseUser user = auth.getCurrentUser();
+
                         if (task.isSuccessful()) {
 
                             final FirebaseDatabase database = FirebaseDatabase.getInstance();

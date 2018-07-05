@@ -23,18 +23,22 @@
         <TextView
             android:text="Got a Burning Question"
             android:textSize="25dp"
+            android:textColor="#000000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
             android:text="Create your next survey and use the insights to make better  decisions."
             android:textSize="18dp"
+            android:textColor="#000000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
             <Button
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
+                android:id="@id/createSurvey"
                 android:background="@drawable/round_button"
                 android:text="Create Survey"
+                android:textAllCaps="false"
                 android:textStyle="bold|italic"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -43,13 +47,85 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/viewDetails"
         android:layout_marginTop="20sp"
+        android:padding="20dp"
         card_view:cardCornerRadius="4dp">
-
-        <TextView
-            android:text="Hello Card"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:padding="20dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:id="@+id/totalSunSurvey"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:text="Total Sun Survey"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:id="@+id/totalSunSurveyResponse"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <TextView
+                        android:text="Total Sun Survey Response"
+                        android:textColor="#000000"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textSize="14dp"
+                android:clickable="false"
+                android:id="@+id/viewAllSurvey"
+                android:textAllCaps="false"
+                android:text="View all survey"/>
+        </LinearLayout>
+
+
+
 
     </android.support.v7.widget.CardView>
 

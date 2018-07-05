@@ -18,8 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+import suntechnologies.com.sunsurvey.Models.CreateSurveyQuestion;
+import suntechnologies.com.sunsurvey.Models.ServeyTakeAnswer;
 
 
 public class TakeSurveyUser extends Activity implements View.OnClickListener  {
@@ -27,7 +28,7 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
     String TAG = "test";
     TextView questionText,surveyName;
     RadioButton radioButtonA, radioButtonB, radioButtonC,radioButtonD;
-    Button contine, next;
+    Button  next;
 
     LinearLayout takeSurveyquestion,surveyNameLayout;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
@@ -37,13 +38,13 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
 
     CreateSurveyQuestion question;
     int count=0;
-    RadioGroup radioGroup;
-    RadioButton answer;
     FirebaseDatabase database;
-    DatabaseReference ref;
     String sessionToken;
     int questionID = 0;
+    int questionCount = 1;
     private DatabaseReference mDatabase;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
 
         takeSurveyquestion = findViewById(R.id.take_surveyquestion);
         surveyNameLayout = findViewById(R.id.surveyNameLayout);
-        contine = findViewById(R.id.contine);
+
         surveyName = findViewById(R.id.surveyName);
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
@@ -64,14 +65,6 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
         serveyId = (String) bundle.get("surveyID");
         questionArryList = (ArrayList<CreateSurveyQuestion>)bundle.get("QuestionList");
         mDatabase = FirebaseDatabase.getInstance().getReference("SurveyAnswer").child(String.valueOf(serveyId));
-
-        contine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                surveyNameLayout.setVisibility(View.GONE);
-                takeSurveyquestion.setVisibility(View.VISIBLE);
-            }
-        });
 
 
 
@@ -89,10 +82,11 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
         radioButtonC = (RadioButton) findViewById(R.id.optionC);
         radioButtonD = (RadioButton) findViewById(R.id.optiond);
        Button  next =  findViewById(R.id.next);
+
        next.setOnClickListener((View.OnClickListener) this);
     }
     private void setupView() {
-        questionText.setText("Question:"+questionID+" "+ questionArryList.get(questionID).question);
+        questionText.setText(""+questionCount+" "+ questionArryList.get(questionID).question);
         radioButtonA.setText(questionArryList.get(questionID).getOption().get(0));
         radioButtonB.setText(questionArryList.get(questionID).getOption().get(1));
         radioButtonC.setText(questionArryList.get(questionID).getOption().get(2));
@@ -108,14 +102,18 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.optionsGroup);
         RadioButton answer = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
 
-        Log.d("ss",answer.toString());
+
+
+         if(answer !=null ){
 
        if(answer.getText().toString() != null){
            writeNewUser(String.valueOf(serveyId) ,sessionToken,questionArryList.get(questionID).question, questionID,answer.getText().toString()) ;
            questionID++;
+           questionCount++;
            if (surveyNotFinished()) {
 
                question = questionArryList.get(questionID);
+               answer = null;
                setupView();
            } else {
                Intent intent = new Intent(this, FeedBackUser.class);
@@ -125,6 +123,9 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener  {
        }else{
            Toast.makeText(TakeSurveyUser.this, "Please select any one item.", Toast.LENGTH_SHORT).show();
        }
+         }else{
+             Toast.makeText(TakeSurveyUser.this, "Please select any one item.", Toast.LENGTH_SHORT).show();
+         }
 
     }
     private boolean surveyNotFinished() {

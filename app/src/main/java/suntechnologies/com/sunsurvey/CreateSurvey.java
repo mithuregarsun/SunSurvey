@@ -1,6 +1,5 @@
 package suntechnologies.com.sunsurvey;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,20 +20,25 @@ import android.widget.Spinner;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import suntechnologies.com.sunsurvey.Models.CreateSurveyModel;
+import suntechnologies.com.sunsurvey.Models.CreateSurveyQuestion;
 import suntechnologies.com.sunsurvey.utility.Helper;
 public class CreateSurvey extends AppCompatActivity implements OnItemSelectedListener {
 
     String TAG = "test",answer;
-    Button createSurvey,sumbit,next,enterQuestion;
+    Button sumbit,next,enterQuestion;
     EditText opt1,opt2,opt3,opt4,question,survey_name;
     TextView questionCount;
     Spinner spinner;
@@ -51,14 +55,13 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
     String optionThird;
     String optionFourth;
 
-
     int i =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_survey);
 
-        createSurvey = findViewById(R.id.createSurvey);
+     //   createSurvey = findViewById(R.id.createSurvey);
         createSurveyLayout = findViewById(R.id.createSurveyLayout);
         createSurveyNameLayout = findViewById(R.id.createSurveyName);
         next = findViewById(R.id.next);
@@ -102,8 +105,12 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
             @Override
             public void onClick(View view) {
                 if(survey_name.getText().toString() != null){
-                    mDatabase = FirebaseDatabase.getInstance().getReference("CreateSurveyName").child(String.valueOf(serveyId));
-                    mDatabase.child("survey_name").setValue(survey_name.getText().toString());
+                    serveyId = (gen());
+                    mDatabase = FirebaseDatabase.getInstance().getReference("CreateSurveyName");
+                    DateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm a");
+                    String date = df.format(Calendar.getInstance().getTime());
+                    CreateSurveyModel createSurvey = new CreateSurveyModel(survey_name.getText().toString(),date);
+                    mDatabase.child(String.valueOf(serveyId)).setValue(createSurvey);
                     createSurveyNameLayout.setVisibility(View.GONE);
 
                     createSurveyLayout.setVisibility(View.VISIBLE);
@@ -115,16 +122,16 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
             }
         });
 
-        createSurvey.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createSurveyNameLayout.setVisibility(View.VISIBLE);
-                createSurvey.setVisibility(View.GONE);
-
-                serveyId = (gen());
-
-            }
-        });
+//        createSurvey.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                createSurveyNameLayout.setVisibility(View.VISIBLE);
+//                createSurvey.setVisibility(View.GONE);
+//
+//                serveyId = (gen());
+//
+//            }
+//        });
 
         //questionCount.setText(String.valueOf(i)+" Out off "+10);
         next.setOnClickListener(new View.OnClickListener() {

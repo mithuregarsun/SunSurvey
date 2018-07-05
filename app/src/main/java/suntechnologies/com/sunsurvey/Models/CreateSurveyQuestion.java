@@ -1,4 +1,4 @@
-package suntechnologies.com.sunsurvey;
+package suntechnologies.com.sunsurvey.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
