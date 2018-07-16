@@ -44,6 +44,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:background="@drawable/edit_text_login_edittext"
             android:id="@+id/sunSurveyId"
+            android:maxLength="5"
             android:hint="Please Enter SunTech Survey ID"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             android:inputType="number"

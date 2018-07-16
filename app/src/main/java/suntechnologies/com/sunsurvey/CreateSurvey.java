@@ -109,7 +109,7 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
                     mDatabase = FirebaseDatabase.getInstance().getReference("CreateSurveyName");
                     DateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm a");
                     String date = df.format(Calendar.getInstance().getTime());
-                    CreateSurveyModel createSurvey = new CreateSurveyModel(survey_name.getText().toString(),date);
+                    CreateSurveyModel createSurvey = new CreateSurveyModel(survey_name.getText().toString(),date,String.valueOf(serveyId),"");
                     mDatabase.child(String.valueOf(serveyId)).setValue(createSurvey);
                     createSurveyNameLayout.setVisibility(View.GONE);
 
@@ -163,7 +163,7 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
                      option.add(opt4.getText().toString());
                      answer = "test";
                      stringCreateSurveyQuestionHashMap = new HashMap<>();
-                     stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,option));
+                     stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,option,String.valueOf(serveyId),String.valueOf(i)));
 
                      writeNewUser(String.valueOf(serveyId) ,stringCreateSurveyQuestionHashMap) ;
                      if(i==20){
@@ -210,7 +210,7 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
                     option.add(opt4.getText().toString());
                     answer = "test";
                     stringCreateSurveyQuestionHashMap = new HashMap<>();
-                    stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,option));
+                    stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,option,String.valueOf(serveyId),String.valueOf(i)));
 
                     writeNewUser(String.valueOf(serveyId) ,stringCreateSurveyQuestionHashMap) ;
 

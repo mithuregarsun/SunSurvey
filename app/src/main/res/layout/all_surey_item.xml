@@ -1,0 +1,84 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:weightSum="5"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/survey_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Question"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:layout_weight="3.8"
+                android:layout_below="@id/thumbnail"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingTop="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/op1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="option1"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:layout_below="@id/thumbnail"/>
+                <TextView
+                    android:id="@+id/op2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="option2"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:layout_below="@id/thumbnail"/>
+                <TextView
+                    android:id="@+id/op3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="option3"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:layout_below="@id/thumbnail"/>
+                <TextView
+                    android:id="@+id/op4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="option4"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:layout_below="@id/thumbnail"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

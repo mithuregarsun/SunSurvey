@@ -22,7 +22,7 @@
             android:id="@+id/surveyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/title_margin"
+            android:textSize="18dp"
             android:padding="10dp"
             android:textAllCaps="false"
             android:textColor="#000000"

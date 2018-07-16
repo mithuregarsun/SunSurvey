@@ -37,7 +37,8 @@ public class SurveyDashBoard extends Activity {
         dialog = new SpotsDialog(this,"Loading....");
         dialog.setCancelable(false);
         dialog.show();
-
+        count=0;
+        count1=0;
         createSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

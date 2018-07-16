@@ -2,14 +2,12 @@ package suntechnologies.com.sunsurvey;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,54 +18,54 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import dmax.dialog.SpotsDialog;
+import suntechnologies.com.sunsurvey.Adapter.AllQuestionSurveyAdapter;
 import suntechnologies.com.sunsurvey.Adapter.TotalSurveyAdapter;
+import suntechnologies.com.sunsurvey.Models.CreateSurveyQuestion;
 import suntechnologies.com.sunsurvey.Models.DividerItemDecorations;
 import suntechnologies.com.sunsurvey.Models.SurveyName;
 
+public class SurveyResponse extends Activity {
 
-public class TotalSurvey extends Activity {
-
-    TotalSurveyAdapter totalSurveyAdapter;
+    AllQuestionSurveyAdapter allQuestionSurveyAdapter;
     RecyclerView recyclerView;
     TotalSurvey totalSurvey;
-    ArrayList<SurveyName> surveyNameArrayList = new ArrayList<>();
+    ArrayList<CreateSurveyQuestion> surveyQuestionArrayList = new ArrayList<>();
     private DatabaseReference createSurveyData,responseSurveyData;
     Dialog dialog;
+    String serveyId;
+Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.total_survey);
+        setContentView(R.layout.response_activity);
         recyclerView = findViewById(R.id.recycler_view);
+        Bundle bundle = getIntent().getExtras();
+        serveyId = (String) bundle.get("surveyID");
         dialog = new SpotsDialog(this,"Loading....");
         dialog.setCancelable(false);
         dialog.show();
-        createSurveyData = FirebaseDatabase.getInstance().getReference("CreateSurveyName/");
+
+        createSurveyData = FirebaseDatabase.getInstance().getReference("SurveyQuestion/"+serveyId);
         createSurveyData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-
+                CreateSurveyQuestion surveyQuestionObj;
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
                     String recordId = snap.getKey();
-                    String username = (String) dataSnapshot.child(recordId).child("survey_name").getValue();
-                     DataSnapshot dataSnapshot1 = dataSnapshot.child(recordId).child("userUsed");
-                    Long countServey =  dataSnapshot1.getChildrenCount();
-                    Log.d("sdf",countServey.toString());
-                    surveyNameArrayList.add(new SurveyName(recordId, username,countServey.toString()));
+                    Log.d("tesr",snap.getValue().toString());
+                    surveyQuestionObj = snap.getValue(CreateSurveyQuestion.class);
+                    surveyQuestionArrayList.add(new CreateSurveyQuestion(surveyQuestionObj.answer,surveyQuestionObj.question,surveyQuestionObj.option,surveyQuestionObj.surveyId,surveyQuestionObj.count));
 
                 }
-
-                Context context = TotalSurvey.this;
-                Activity activity = TotalSurvey.this;
-                totalSurveyAdapter = new TotalSurveyAdapter(activity, surveyNameArrayList);
+                activity = SurveyResponse.this;
+                allQuestionSurveyAdapter = new AllQuestionSurveyAdapter(activity, surveyQuestionArrayList);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.addItemDecoration(new DividerItemDecorations(TotalSurvey.this, DividerItemDecoration.VERTICAL,36));
-
-                recyclerView.setAdapter(totalSurveyAdapter);
+                recyclerView.addItemDecoration(new DividerItemDecorations(SurveyResponse.this, DividerItemDecoration.VERTICAL,36));
+                recyclerView.setAdapter(allQuestionSurveyAdapter);
                 dialog.dismiss();
 
             }
@@ -78,7 +76,7 @@ public class TotalSurvey extends Activity {
             }
         });
 
-
     }
+
 
 }
