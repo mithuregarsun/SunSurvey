@@ -233,7 +233,8 @@ public class MainActivity extends Activity {
                     intent.putExtra("QuestionList", questionArryList);
                     intent.putExtra("createSurvey", name);
                     intent.putExtra("surveyID", serveyId);
-                    startActivity(intent);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    MainActivity.this.startActivity(intent);
                 }
 
 

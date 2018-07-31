@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import suntechnologies.com.sunsurvey.Models.CreateSurveyQuestion;
 import suntechnologies.com.sunsurvey.Models.ServeyTakeAnswer;
@@ -41,10 +43,11 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener {
     String sessionToken;
     int questionID = 0;
     int questionCount = 1;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase,mDatabaseSurveyAnswer;
 
     RadioGroup radioGroup;
     RadioButton answer;
+    String selectedUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +68,12 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener {
         surveyName.setText((String) bundle.get("createSurvey"));
         serveyId = (String) bundle.get("surveyID");
         questionArryList = (ArrayList<CreateSurveyQuestion>) bundle.get("QuestionList");
-        mDatabase = FirebaseDatabase.getInstance().getReference("SurveyAnswer").child(String.valueOf(serveyId));
+        mDatabase = FirebaseDatabase.getInstance().getReference("SurveyQuestionForUser").child(String.valueOf(serveyId));
+        mDatabaseSurveyAnswer = FirebaseDatabase.getInstance().getReference("SurveyAnswer").child(String.valueOf(serveyId));
 
 
         setupLayout();
+       // radioGroup.se
 
     }
 
@@ -90,10 +95,10 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener {
 
     private void setupView() {
         questionText.setText("" + questionCount + " " + questionArryList.get(questionID).question);
-        radioButtonA.setText(questionArryList.get(questionID).getOption().get(0));
-        radioButtonB.setText(questionArryList.get(questionID).getOption().get(1));
-        radioButtonC.setText(questionArryList.get(questionID).getOption().get(2));
-        radioButtonD.setText(questionArryList.get(questionID).getOption().get(3));
+        radioButtonA.setText(questionArryList.get(questionID).getOption().optionA);
+        radioButtonB.setText(questionArryList.get(questionID).getOption().optionB);
+        radioButtonC.setText(questionArryList.get(questionID).getOption().optionC);
+        radioButtonD.setText(questionArryList.get(questionID).getOption().optionD);
 
 
     }
@@ -102,12 +107,27 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener {
     public void onClick(View view) {
 
         answer = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
-
+        int selectedId = radioGroup.getCheckedRadioButtonId();
 
         if (answer != null) {
 
             if (answer.getText().toString() != null) {
-                writeNewUser(String.valueOf(serveyId), sessionToken, questionArryList.get(questionID).question, questionID, answer.getText().toString());
+               switch (selectedId){
+                   case R.id.optionA:
+                       selectedUserId = "userIdA";
+                       break;
+                   case R.id.optionB:
+                       selectedUserId = "userIdB";
+                       break;
+                   case R.id.optionC:
+                       selectedUserId = "userIdC";
+                       break;
+                   case R.id.optiond:
+                       selectedUserId = "userIdD";
+                       break;
+               }
+
+                writeNewUser(String.valueOf(serveyId), sessionToken, questionArryList.get(questionID).question, questionID, answer.getText().toString(),questionCount,selectedUserId);
                 questionID++;
                 questionCount++;
                 if (surveyNotFinished()) {
@@ -133,11 +153,14 @@ public class TakeSurveyUser extends Activity implements View.OnClickListener {
         return questionID < questionArryList.size();
     }
 
-    private void writeNewUser(String serveyId, String sessionToken, String question, int questionID, String answer) {
+    private void writeNewUser(String serveyId, String sessionToken, String question, int questionID, String answer,int questionCount,String selectedUserId) {
 
         ServeyTakeAnswer serveyTakeAnswer = new ServeyTakeAnswer(question, answer);
 
-        mDatabase.child(sessionToken).child(String.valueOf(questionID)).setValue(serveyTakeAnswer);
+        mDatabaseSurveyAnswer.child(sessionToken).child(String.valueOf(questionID)).setValue(serveyTakeAnswer);
+        Map<String,String> strings = new HashMap<>();
+        strings.put("survey_aswer",answer);
+        mDatabase.child(String.valueOf(questionCount)).child("option").child(selectedUserId).child(sessionToken).setValue(strings);
 
 
     }

@@ -29,9 +29,8 @@ public class TotalSurvey extends Activity {
 
     TotalSurveyAdapter totalSurveyAdapter;
     RecyclerView recyclerView;
-    TotalSurvey totalSurvey;
     ArrayList<SurveyName> surveyNameArrayList = new ArrayList<>();
-    private DatabaseReference createSurveyData,responseSurveyData;
+    private DatabaseReference createSurveyData;
     Dialog dialog;
 
     @Override
@@ -54,18 +53,15 @@ public class TotalSurvey extends Activity {
                     String username = (String) dataSnapshot.child(recordId).child("survey_name").getValue();
                      DataSnapshot dataSnapshot1 = dataSnapshot.child(recordId).child("userUsed");
                     Long countServey =  dataSnapshot1.getChildrenCount();
-                    Log.d("sdf",countServey.toString());
                     surveyNameArrayList.add(new SurveyName(recordId, username,countServey.toString()));
 
                 }
 
-                Context context = TotalSurvey.this;
                 Activity activity = TotalSurvey.this;
                 totalSurveyAdapter = new TotalSurveyAdapter(activity, surveyNameArrayList);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.addItemDecoration(new DividerItemDecorations(TotalSurvey.this, DividerItemDecoration.VERTICAL,36));
+
 
                 recyclerView.setAdapter(totalSurveyAdapter);
                 dialog.dismiss();

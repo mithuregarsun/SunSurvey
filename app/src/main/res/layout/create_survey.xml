@@ -42,26 +42,30 @@
         android:orientation="vertical"
         android:visibility="visible"
         android:id="@+id/createSurveyName"
-        android:layout_height="match_parent">
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:background="#FFFFFF"
+        android:padding="20dp"
+        android:layout_height="wrap_content">
+
+
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:drawableTint="#FF4081"
+                android:layout_height="100dp"
                 android:singleLine="true"
                 android:maxLength="50"
+                android:gravity="center"
+                android:background="@drawable/border_set"
                 android:hint="Enter Survey Name "
                 android:id="@+id/survey_name"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+                android:inputType="text" />
+
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enter Question"
+            android:layout_marginTop="5dp"
             android:textAllCaps="false"
             android:background="@color/colorPrimary"
             android:id="@+id/enterQuestion"

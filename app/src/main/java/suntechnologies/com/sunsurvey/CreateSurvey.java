@@ -1,6 +1,7 @@
 package suntechnologies.com.sunsurvey;
 
 import android.content.Intent;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,8 @@ import android.widget.TextView;
 
 import suntechnologies.com.sunsurvey.Models.CreateSurveyModel;
 import suntechnologies.com.sunsurvey.Models.CreateSurveyQuestion;
+import suntechnologies.com.sunsurvey.Models.Options;
+import suntechnologies.com.sunsurvey.Models.userIdA;
 import suntechnologies.com.sunsurvey.utility.Helper;
 public class CreateSurvey extends AppCompatActivity implements OnItemSelectedListener {
 
@@ -47,7 +50,7 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
     int serveyId;
     HashMap<String ,CreateSurveyQuestion>stringCreateSurveyQuestionHashMap;
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase,mDatabase1;
 
     String quest ;
     String optionFirst;
@@ -104,7 +107,7 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
         enterQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(survey_name.getText().toString() != null){
+                if(survey_name.getText().toString()!= null && survey_name.getText().toString().length()>0){
                     serveyId = (gen());
                     mDatabase = FirebaseDatabase.getInstance().getReference("CreateSurveyName");
                     DateFormat df = new SimpleDateFormat("dd MMM yyyy, HH:mm a");
@@ -162,8 +165,12 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
                      option.add(opt3.getText().toString());
                      option.add(opt4.getText().toString());
                      answer = "test";
+                     ArrayList<Options>op = new ArrayList<>();
+
+                     Options options = new Options(opt1.getText().toString(),"",opt2.getText().toString(),"",opt3.getText().toString(),"",opt4.getText().toString(),"");
+                     op.add(options);
                      stringCreateSurveyQuestionHashMap = new HashMap<>();
-                     stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,option,String.valueOf(serveyId),String.valueOf(i)));
+                     stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,options,String.valueOf(serveyId),String.valueOf(i)));
 
                      writeNewUser(String.valueOf(serveyId) ,stringCreateSurveyQuestionHashMap) ;
                      if(i==20){
@@ -209,8 +216,12 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
                     option.add(opt3.getText().toString());
                     option.add(opt4.getText().toString());
                     answer = "test";
+                    ArrayList<Options>op = new ArrayList<>();
+
+                    Options options = new Options(opt1.getText().toString(),"",opt2.getText().toString(),"",opt3.getText().toString(),"",opt4.getText().toString(),"");
+                       op.add(options);
                     stringCreateSurveyQuestionHashMap = new HashMap<>();
-                    stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,option,String.valueOf(serveyId),String.valueOf(i)));
+                    stringCreateSurveyQuestionHashMap.put(String.valueOf(i),new CreateSurveyQuestion(quest,answer,options,String.valueOf(serveyId),String.valueOf(i)));
 
                     writeNewUser(String.valueOf(serveyId) ,stringCreateSurveyQuestionHashMap) ;
 
@@ -308,12 +319,14 @@ public class CreateSurvey extends AppCompatActivity implements OnItemSelectedLis
 
          answer = "test";
         mDatabase = FirebaseDatabase.getInstance().getReference("SurveyQuestion").child(serveyId);
+        mDatabase1 = FirebaseDatabase.getInstance().getReference("SurveyQuestionForUser").child(serveyId);
 
          opt1.setText("");opt2.setText("");opt3.setText("");opt4.setText("");question.setText("");
 
         for (Map.Entry<String, CreateSurveyQuestion> entry : stringCreateSurveyQuestionHashMap.entrySet()) {
           //  mDatabase.setValue(entry.getValue());
             mDatabase.child(String.valueOf(entry.getKey())).setValue(entry.getValue());
+            mDatabase1.child(String.valueOf(entry.getKey())).setValue(entry.getValue());
 
         }
         option.clear();

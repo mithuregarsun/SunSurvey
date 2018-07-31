@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class CreateSurveyQuestion implements Serializable {
     public String answer;
     public String question;
-    public ArrayList<String> option;
+    public Options option;
     public String surveyId;
     public String count;
 
@@ -14,7 +14,7 @@ public class CreateSurveyQuestion implements Serializable {
 
     }
 
-    public CreateSurveyQuestion( String question,String answer, ArrayList<String> option,String surveyId,String count) {
+    public CreateSurveyQuestion( String question,String answer, Options option,String surveyId,String count) {
         this.option = option;
         this.question = question;
         this.answer = answer;
@@ -22,8 +22,12 @@ public class CreateSurveyQuestion implements Serializable {
         this.count = count;
     }
 
-    public ArrayList<String> getOption() {
+    public Options getOption() {
         return option;
+    }
+
+    public void setOption(Options option) {
+        this.option = option;
     }
 
     public void setAnswer(String answer) {
@@ -34,9 +38,7 @@ public class CreateSurveyQuestion implements Serializable {
         return answer;
     }
 
-    public void setOption(ArrayList<String> option) {
-        this.option = option;
-    }
+
 
     public String getQuestion() {
         return question;

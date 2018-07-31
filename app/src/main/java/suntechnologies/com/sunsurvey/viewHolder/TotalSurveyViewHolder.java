@@ -9,12 +9,13 @@ import android.widget.TextView;
 import suntechnologies.com.sunsurvey.R;
 
 public class TotalSurveyViewHolder extends  RecyclerView.ViewHolder  {
-    public TextView surveyTitle, count;
+    public TextView surveyTitle, count,surveyId;
     public ImageView thumbnail;
    public CardView card_view;
     public TotalSurveyViewHolder(View view) {
         super(view);
         surveyTitle = (TextView) view.findViewById(R.id.title);
+        surveyId = (TextView) view.findViewById(R.id.surveyId);
         count = (TextView) view.findViewById(R.id.count);
         thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
         card_view = (CardView) view.findViewById(R.id.card_view);

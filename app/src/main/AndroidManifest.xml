@@ -75,13 +75,6 @@
             tools:ignore="DuplicateActivity"/>
 
 
-
-        <activity android:name="suntechnologies.com.sunsurvey.UserResponseSurvey"
-
-            android:screenOrientation="portrait" />
-
-
-
         <activity android:name=".ShareQuestionUser"
             android:configChanges="orientation"
             android:screenOrientation="portrait"

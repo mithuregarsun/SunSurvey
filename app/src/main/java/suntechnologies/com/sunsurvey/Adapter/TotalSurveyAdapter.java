@@ -20,9 +20,7 @@ import suntechnologies.com.sunsurvey.viewHolder.TotalSurveyViewHolder;
 
 public class TotalSurveyAdapter extends RecyclerView.Adapter<TotalSurveyViewHolder> {
     ArrayList<SurveyName>iistLtem;
-    Context context;
     Activity activity;
-    private static RecyclerViewClickListener itemListener;
     public TotalSurveyAdapter(Activity activity,ArrayList<SurveyName> iistLtem){
         this.iistLtem = iistLtem;
         this.activity = activity;
@@ -42,6 +40,7 @@ public class TotalSurveyAdapter extends RecyclerView.Adapter<TotalSurveyViewHold
              SurveyName surveyName = iistLtem.get(position);
              holder.surveyTitle.setText(surveyName.name);
              holder.count.setText(surveyName.response);
+             holder.surveyId.setText(surveyName.surveyId);
 
        holder.card_view.setOnClickListener(new View.OnClickListener() {
            @Override

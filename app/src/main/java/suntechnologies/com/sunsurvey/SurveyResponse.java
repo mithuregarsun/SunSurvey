@@ -16,24 +16,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 import suntechnologies.com.sunsurvey.Adapter.AllQuestionSurveyAdapter;
 import suntechnologies.com.sunsurvey.Adapter.TotalSurveyAdapter;
+import suntechnologies.com.sunsurvey.Adapter.UserResponseSurveyAdapter;
 import suntechnologies.com.sunsurvey.Models.CreateSurveyQuestion;
 import suntechnologies.com.sunsurvey.Models.DividerItemDecorations;
+import suntechnologies.com.sunsurvey.Models.Options;
 import suntechnologies.com.sunsurvey.Models.SurveyName;
+import suntechnologies.com.sunsurvey.Models.UserResponse;
 
 public class SurveyResponse extends Activity {
 
-    AllQuestionSurveyAdapter allQuestionSurveyAdapter;
+    UserResponseSurveyAdapter userResponseSurveyAdapter;
     RecyclerView recyclerView;
-    TotalSurvey totalSurvey;
-    ArrayList<CreateSurveyQuestion> surveyQuestionArrayList = new ArrayList<>();
-    private DatabaseReference createSurveyData,responseSurveyData;
+
+
+    private DatabaseReference createSurveyData;
     Dialog dialog;
     String serveyId;
-Activity activity;
+    Activity activity;
+    ArrayList<UserResponse> userResponseArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,30 +49,80 @@ Activity activity;
         recyclerView = findViewById(R.id.recycler_view);
         Bundle bundle = getIntent().getExtras();
         serveyId = (String) bundle.get("surveyID");
-        dialog = new SpotsDialog(this,"Loading....");
+        dialog = new SpotsDialog(this, "Loading....");
         dialog.setCancelable(false);
         dialog.show();
 
-        createSurveyData = FirebaseDatabase.getInstance().getReference("SurveyQuestion/"+serveyId);
+        createSurveyData = FirebaseDatabase.getInstance().getReference("SurveyQuestionForUser/" + serveyId);
+
         createSurveyData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                CreateSurveyQuestion surveyQuestionObj;
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                    String recordId = snap.getKey();
-                    Log.d("tesr",snap.getValue().toString());
-                    surveyQuestionObj = snap.getValue(CreateSurveyQuestion.class);
-                    surveyQuestionArrayList.add(new CreateSurveyQuestion(surveyQuestionObj.answer,surveyQuestionObj.question,surveyQuestionObj.option,surveyQuestionObj.surveyId,surveyQuestionObj.count));
+
+                    String question = snap.child("question").getValue(String.class);
+
+                    String optionC, optionA, optionD, optionB;
+                    Object userIdA, userIdB, userIdC, userIdD;
+
+                    Map<DataSnapshot, Object> map = (Map<DataSnapshot, Object>) snap.child("option").getValue();
+                   ArrayList<String>options = new ArrayList<>();
+                   ArrayList<Integer>arrayList = new ArrayList<>();
+                    optionA = String.valueOf(map.get("optionA"));
+                    optionB = (String) map.get("optionB");
+                    optionC = (String) map.get("optionC");
+                    optionD = (String) map.get("optionD");
+                    userIdA = (Object) map.get("userIdA");
+                    userIdB = (Object) map.get("userIdB");
+                    userIdC = (Object) map.get("userIdC");
+                    userIdD = (Object) map.get("userIdD");
+                    options.add(optionA);
+                    options.add(optionB);
+                    options.add(optionC);
+                    options.add(optionD);
+
+                    int userCountA = 0, userCountB = 0, userCountC = 0, userCountD = 0;
+
+                    if (userIdA != null && String.valueOf(userIdA).length() > 0) {
+                        String[] parts = String.valueOf(userIdA).split(",");
+
+                        userCountA = parts.length;
+                    }
+                    if (userIdB != null && String.valueOf(userIdB).length() > 0) {
+
+                        String[] parts = String.valueOf(userIdB).split(",");
+                        userCountB = parts.length;
+
+                    }
+                    if (userIdC != null && String.valueOf(userIdC).length() > 0) {
+
+                        String[] parts = String.valueOf(userIdC).split(",");
+                        userCountC = parts.length;
+
+                    }
+                    if (userIdD != null && String.valueOf(userIdD).length() > 0) {
+
+                        String[] parts = String.valueOf(userIdD).split(",");
+                        userCountD = parts.length;
+
+                    }
+
+                    arrayList.add(userCountA);
+                    arrayList.add(userCountB);
+                    arrayList.add(userCountC);
+                    arrayList.add(userCountD);
+                    userResponseArrayList.add(new UserResponse(options,arrayList,question, optionA, optionB, optionC, optionD, userCountA, userCountB, userCountC, userCountD, userCountA + userCountB + userCountC + userCountD));
+
 
                 }
+
                 activity = SurveyResponse.this;
-                allQuestionSurveyAdapter = new AllQuestionSurveyAdapter(activity, surveyQuestionArrayList);
+                userResponseSurveyAdapter = new UserResponseSurveyAdapter(activity, userResponseArrayList);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
-                recyclerView.addItemDecoration(new DividerItemDecorations(SurveyResponse.this, DividerItemDecoration.VERTICAL,36));
-                recyclerView.setAdapter(allQuestionSurveyAdapter);
+                recyclerView.addItemDecoration(new DividerItemDecorations(SurveyResponse.this, DividerItemDecoration.VERTICAL, 36));
+                recyclerView.setAdapter(userResponseSurveyAdapter);
                 dialog.dismiss();
 
             }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import suntechnologies.com.sunsurvey.Models.CreateSurveyQuestion;
 import suntechnologies.com.sunsurvey.R;
-import suntechnologies.com.sunsurvey.UserResponseSurvey;
 import suntechnologies.com.sunsurvey.viewHolder.AllQuestionSurveyViewHolder;
 
 public class AllQuestionSurveyAdapter extends RecyclerView.Adapter<AllQuestionSurveyViewHolder> {
@@ -38,19 +37,15 @@ public class AllQuestionSurveyAdapter extends RecyclerView.Adapter<AllQuestionSu
     public void onBindViewHolder(AllQuestionSurveyViewHolder holder,final int position) {
         CreateSurveyQuestion createSurveyQuestion = surveyQuestionArrayList.get(position);
         holder.surveyQuestion.setText(createSurveyQuestion.answer);
-        holder.option1.setText(createSurveyQuestion.option.get(0));
-        holder.option2.setText(createSurveyQuestion.option.get(1));
-        holder.option3.setText(createSurveyQuestion.option.get(2));
-        holder.option4.setText(createSurveyQuestion.option.get(3));
+        holder.option1.setText(createSurveyQuestion.option.optionA);
+        holder.option2.setText(createSurveyQuestion.option.optionB);
+        holder.option3.setText(createSurveyQuestion.option.optionC);
+        holder.option4.setText(createSurveyQuestion.option.optionD);
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                CreateSurveyQuestion surveyName = surveyQuestionArrayList.get(position);
-                Intent intent = new Intent(activity, UserResponseSurvey.class);
-                intent.putExtra("surveyID", surveyName.surveyId);
-                intent.putExtra("count", surveyName.count);
-                activity.startActivity(intent);
+
             }
         });
 
